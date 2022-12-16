@@ -11,3 +11,4 @@ srcDir        = "src"
 
 requires "nim >= 1.6.8"
 requires "dotenv >= 2.0.0"
+requires "jsony >= 1.1.3"
