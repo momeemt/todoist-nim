@@ -20,24 +20,28 @@ type
 const
   RestBaseUrl* = "https://api.todoist.com/rest/v2"
 
-proc projects* (token: string): seq[Project] =
-  var client = newHttpClient()
-  client.headers["Authorization"] = &"Bearer {token}"
+proc client* (token: string): HttpClient =
+  result = newHttpClient()
+  result.headers["Authorization"] = &"Bearer {token}"
+
+func to* (json: JsonNode, _: typedesc[Project]): Project =
+  result.id = json["id"].getStr
+
+  result.parentId = json["parent_id"].getStr
+  result.order = json["order"].getInt
+  result.color = json["color"].getStr
+  result.name = json["name"].getStr
+  result.commentCount = json["comment_count"].getInt
+  result.isShared = json["is_shared"].getBool
+  result.isFavorite = json["is_favorite"].getBool
+  result.isInboxProject = json["is_inbox_project"].getBool
+  result.isTeamInbox = json["is_team_inbox"].getBool
+  result.url = json["url"].getStr
+  result.viewStyle = json["view_style"].getStr
+
+proc projects* (client: var HttpClient): seq[Project] =
   let
     response = client.request(RestBaseUrl & "/projects", HttpGet)
     body = response.body.parseJson
   for elem in body:
-    result.add Project(
-      id: elem["id"].getStr,
-      parentId: elem["parent_id"].getStr,
-      order: elem["order"].getInt,
-      color: elem["color"].getStr,
-      name: elem["name"].getStr,
-      commentCount: elem["comment_count"].getInt,
-      isShared: elem["is_shared"].getBool,
-      isFavorite: elem["is_favorite"].getBool,
-      isInboxProject: elem["is_inbox_project"].getBool,
-      isTeamInbox: elem["is_team_inbox"].getBool,
-      url: elem["url"].getStr,
-      viewStyle: elem["view_style"].getStr
-    )
+    result.add elem.to(Project)
