@@ -6,4 +6,5 @@ import dotenv
 
 test "projects":
   load()
-  echo todoist.projects(getEnv("Authorization"))
+  var todoist = todoist(getEnv("Authorization"))
+  echo todoist.projects()
