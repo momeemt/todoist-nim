@@ -89,13 +89,13 @@ proc updateProjectInstantly* (client: HttpClient,
     tempId = $genUUID()
     uuid = $genUUID()
   
-  var cmds = commandsData("ptoject_update", tempId, uuid)
+  var cmds = commandsData("project_update", tempId, uuid)
   cmds[0]["args"]["name"] ??= name
   cmds[0]["args"]["color"] ??= color
   cmds[0]["args"]["collapsed"] ??= collapsed
   cmds[0]["args"]["is_favorite"] ??= isFavorite
   cmds[0]["args"]["view_style"] ??= viewStyle
   data["commands"] = $cmds
-  
+
   let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
   result = response.parseJson.toTodoistResult
