@@ -71,6 +71,15 @@ func commandsData (typ, tempId, uuid: string): JsonNode =
     }
   ]
 
+func commandsData (typ, uuid: string): JsonNode =
+  result = %*[
+    {
+      "type": typ,
+      "uuid": uuid,
+      "args": {}
+    }
+  ]
+
 template `??=` [T] (left: untyped, right: T): untyped =
   if Some(@v) ?= right:
     left = %*v
@@ -99,3 +108,60 @@ proc updateProjectInstantly* (client: HttpClient,
 
   let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
   result = response.parseJson.toTodoistResult
+
+proc moveProjectInstantly* (client: HttpClient, id, parentId: string): TodoistResult =
+  let (tempId, uuid) = ($genUUID(), $genUUID())
+  var
+    client = client
+    data = newMultipartData()
+    cmds = commandsData("project_move", tempId, uuid)
+  cmds[0]["args"]["id"] = %*id
+  cmds[0]["args"]["parent_id"] = %*parentId
+  data["commands"] = $cmds
+
+  let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
+  result = response.parseJson.toTodoistResult
+
+proc deleteProjectInstantly* (client: HttpClient, id: string): TodoistResult =
+  let uuid = $genUUID()
+  var
+    client = client
+    data = newMultipartData()
+    cmds = commandsData("project_delete", uuid)
+  cmds[0]["args"]["id"] = %*id
+  data["commands"] = $cmds
+
+  let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
+  result = response.parseJson.toTodoistResult
+
+proc archiveProjectInstantly* (client: HttpClient, id: string): TodoistResult =
+  let uuid = $genUUID()
+  var
+    client = client
+    data = newMultipartData()
+    cmds = commandsData("project_archive", uuid)
+  cmds[0]["args"]["id"] = %*id
+  data["commands"] = $cmds
+
+  let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
+  result = response.parseJson.toTodoistResult
+
+proc unarchiveProjectInstantly* (client: HttpClient, id: string): TodoistResult =
+  let uuid = $genUUID()
+  var
+    client = client
+    data = newMultipartData()
+    cmds = commandsData("project_unarchive", uuid)
+  cmds[0]["args"]["id"] = %*id
+  data["commands"] = $cmds
+
+  let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
+  result = response.parseJson.toTodoistResult
+
+proc reorderProjectInstantly* (client: HttpClient, id: string): TodoistResult =
+  discard
+
+proc getProjectInfo* (client: HttpClient): TodoistResult = discard
+proc getProjectData* (client: HttpClient): TodoistResult = discard
+proc getArchivedProjects* (client: HttpClient): TodoistResult = discard
+
