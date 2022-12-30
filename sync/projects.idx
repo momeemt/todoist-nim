@@ -1,0 +1,12 @@
+ViewStyleKind	sync/projects.html#ViewStyleKind	projects: ViewStyleKind	
+Project	sync/projects.html#Project	projects: Project	
+addProjectInstantly	sync/projects.html#addProjectInstantly,HttpClient,string,Color,string,int,bool,ViewStyleKind	projects: addProjectInstantly(client: HttpClient; name: string;\n                    color: Color = Color.Charcoal; parentId: string = &quot;&quot;;\n                    childOrder: int = -1; isFavorite: bool = false;\n                    viewStyle: ViewStyleKind = ViewStyleKind.List): TodoistResult	
+updateProjectInstantly	sync/projects.html#updateProjectInstantly,HttpClient,string	projects: updateProjectInstantly(client: HttpClient; id: string; name = none();\n                       color = none(); collapsed = none(); isFavorite = none();\n                       viewStyle = none()): TodoistResult	
+moveProjectInstantly	sync/projects.html#moveProjectInstantly,HttpClient,string,string	projects: moveProjectInstantly(client: HttpClient; id, parentId: string): TodoistResult	
+deleteProjectInstantly	sync/projects.html#deleteProjectInstantly,HttpClient,string	projects: deleteProjectInstantly(client: HttpClient; id: string): TodoistResult	
+archiveProjectInstantly	sync/projects.html#archiveProjectInstantly,HttpClient,string	projects: archiveProjectInstantly(client: HttpClient; id: string): TodoistResult	
+unarchiveProjectInstantly	sync/projects.html#unarchiveProjectInstantly,HttpClient,string	projects: unarchiveProjectInstantly(client: HttpClient; id: string): TodoistResult	
+reorderProjectInstantly	sync/projects.html#reorderProjectInstantly,HttpClient,string	projects: reorderProjectInstantly(client: HttpClient; id: string): TodoistResult	
+getProjectInfo	sync/projects.html#getProjectInfo,HttpClient	projects: getProjectInfo(client: HttpClient): TodoistResult	
+getProjectData	sync/projects.html#getProjectData,HttpClient	projects: getProjectData(client: HttpClient): TodoistResult	
+getArchivedProjects	sync/projects.html#getArchivedProjects,HttpClient	projects: getArchivedProjects(client: HttpClient): TodoistResult	
