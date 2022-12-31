@@ -18,7 +18,6 @@ suite "add item":
   #   check true
   
   test "add item with all arguments":
-    echo "env: ", getEnv("Authorization")
     var item = waitFor client.addItem("add item with all arguments",
                          description = some("task created using todoist-nim"),
                          priority = some(3),

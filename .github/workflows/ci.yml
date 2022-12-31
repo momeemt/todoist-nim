@@ -12,6 +12,9 @@ on:
       - LICENSE
       - .vscode/**
 
+env:
+  Authorization: ${{ secrets.Authorization }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
