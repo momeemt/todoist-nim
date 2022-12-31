@@ -195,14 +195,38 @@ proc updateDayOrdersItem* (client: HttpClient, id: string): TodoistResult =
 proc getItemInfo* (client: HttpClient, itemId: string, allData: bool = true): TodoistResult =
   discard
 
-proc getCompletedItems* (client: HttpClient,
-                         projectId: string,
-                         limit: int,
-                         offset: int,
-                         until: string,
-                         since: string,
-                         annotateNotes: bool): TodoistResult =
-  discard
+proc getCompletedItems* (client: AsyncHttpClient,
+                         projectId = none[string](),
+                         limit = none[int](),
+                         offset = none[int](),
+                         until = none[DateTime](),
+                         since = none[DateTime](),
+                         annotateNotes = none[bool]()): Future[seq[Item]] {.async.} =
+  var
+    client = client
+    data = newMultipartData()
+  if Some(@projectId) ?= projectId:
+    data["project_id"] = projectId
+  if Some(@limit) ?= limit:
+    data["limit"] = $limit
+  if Some(@offset) ?= offset:
+    data["offset"] = $offset
+  if Some(@until) ?= until:
+    data["until"] = (until + initDuration(seconds=utcOffset(now()))).format("yyyy-MM-dd'T'HH:mm:ss")
+  if Some(@since) ?= since:
+    data["since"] = (since + initDuration(seconds=utcOffset(now()))).format("yyyy-MM-dd'T'HH:mm:ss")
+  if Some(@annotateNotes) ?= annotateNotes:
+    data["annotate_notes"] = $annotateNotes
+  let response = await client.postContent("https://api.todoist.com/sync/v9/completed/get_all", multipart=data)
+
+  for item in response.parseJson["items"]:
+    result.add Item(
+      id: item["id"].getStr,
+      userId: some(item["user_id"].getStr),
+      projectId: some(item["project_id"].getStr),
+      content: item["content"].getStr,
+      completedAt: some(item["completed_at"].getStr.parse("yyyy-MM-dd'T'hh:mm:ss'.'ffffff'Z'") - initDuration(seconds=utcOffset(now())))
+    )
 
 proc quickAddItem* (client: HttpClient,
                     text: string,
