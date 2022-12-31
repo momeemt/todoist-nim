@@ -14,8 +14,8 @@ type
 
 const TodoistSyncAPIUrl* = "https://api.todoist.com/sync/v9/sync"
 
-proc syncAPI* (token: string): HttpClient =
-  result = newHttpClient()
+proc syncAPI* (token: string): AsyncHttpClient =
+  result = newAsyncHttpClient()
   result.headers["Authorization"] = &"Bearer {token}"
   result.headers["Content-Type"] = "application/json"
 

@@ -5,6 +5,7 @@ import std/times
 import std/tables
 import std/options
 import std/httpclient
+import std/asyncdispatch
 
 import uuids
 import fusion/matching
@@ -43,22 +44,14 @@ template `??=` [T] (left: untyped, right: T): untyped =
   if Some(@v) ?= right:
     left = %*v
 
-proc addItem* (client: HttpClient,
-               content: string,
-               description = none[string](),
-               projectId = none[string](),
-               due = none[Due](),
-               priority = none[int](),
-               parentId = none[string](),
-               childOrder = none[int](),
-               sectionId = none[string](),
-               dayOrder = none[int](),
-               collapsed = none[bool](),
-               labels = none[seq[string]](),
-               assignedByUid = none[string](),
-               responsibleUid = none[string](),
-               autoReminder = none[bool](),
-               autoParseLabels = none[bool]()): Item =
+proc addItem* (client: AsyncHttpClient, content: string,
+               description = none[string](), projectId = none[string](),
+               due = none[Due](), priority = none[int](),
+               parentId = none[string](), childOrder = none[int](),
+               sectionId = none[string](), dayOrder = none[int](),
+               collapsed = none[bool](), labels = none[seq[string]](),
+               assignedByUid = none[string](), responsibleUid = none[string](),
+               autoReminder = none[bool](), autoParseLabels = none[bool]()): Future[Item] {.async.} =
   var client = client
   client.headers["Content-Type"] = "application/json"
   var data = newMultipartData()
@@ -89,7 +82,7 @@ proc addItem* (client: HttpClient,
   commands[0]["args"]["auto_parse_labels"] ??= autoParseLabels
 
   data["commands"] = $commands
-  let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
+  let response = await client.postContent(TodoistSyncAPIUrl, multipart=data)
   let todoistRes = response.parseJson.toTodoistResult
   result = Item(
     id: todoistRes.tempIdMapping[tempId],
@@ -152,7 +145,7 @@ proc deleteItem* (client: HttpClient, item: Item): Item =
   data["commands"] = $commands
   let _ = client.postContent(TodoistSyncAPIUrl, multipart=data)
 
-proc completeItem* (client: HttpClient, item: Item, dateCompleted = none[DateTime]()): Item =
+proc completeItem* (client: AsyncHttpClient, item: Item, dateCompleted = none[DateTime]()): Future[Item] {.async.} =
   result = item
   result.checked = true
   var
@@ -170,7 +163,7 @@ proc completeItem* (client: HttpClient, item: Item, dateCompleted = none[DateTim
   if Some(@dateCompleted) ?= dateCompleted:
     commands[0]["args"]["date_completed"] = %*(dateCompleted.format("yyyy-MM-dd'T'HH:mm:ss'.'ffffff'Z'"))
   data["commands"] = $commands
-  let _ = client.postContent(TodoistSyncAPIUrl, multipart=data)
+  let _ = await client.postContent(TodoistSyncAPIUrl, multipart=data)
 
 proc uncompleteItem* (client: HttpClient, item: Item): Item =
   result = item
