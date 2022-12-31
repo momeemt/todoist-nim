@@ -10,13 +10,14 @@ type
     fullSync: bool
     syncStatus: Table[string, SyncStatus]
     syncToken: string
-    tempIdMapping: Table[string, string]
+    tempIdMapping*: Table[string, string]
 
 const TodoistSyncAPIUrl* = "https://api.todoist.com/sync/v9/sync"
 
 proc syncAPI* (token: string): HttpClient =
   result = newHttpClient()
   result.headers["Authorization"] = &"Bearer {token}"
+  result.headers["Content-Type"] = "application/json"
 
 func toTodoistResult* (res: JsonNode): TodoistResult =
   result = TodoistResult()
