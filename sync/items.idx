@@ -1,13 +1,13 @@
 Due	sync/items.html#Due	items: Due	
 Item	sync/items.html#Item	items: Item	
 ItemOrder	sync/items.html#ItemOrder	items: ItemOrder	
-addItem	sync/items.html#addItem,HttpClient,string	items: addItem(client: HttpClient; content: string; description = none();\n        projectId = none(); due = none(); priority = none(); parentId = none();\n        childOrder = none(); sectionId = none(); dayOrder = none();\n        collapsed = none(); labels = none(); assignedByUid = none();\n        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): TodoistResult	
+addItem	sync/items.html#addItem,HttpClient,string	items: addItem(client: HttpClient; content: string; description = none();\n        projectId = none(); due = none(); priority = none(); parentId = none();\n        childOrder = none(); sectionId = none(); dayOrder = none();\n        collapsed = none(); labels = none(); assignedByUid = none();\n        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Item	
 updateItem	sync/items.html#updateItem,HttpClient,string	items: updateItem(client: HttpClient; id: string; content = none();\n           description = none(); due = none(); priority = none();\n           collapsed = none(); labels = none(); assignedByUid = none();\n           responsibleUid = none(); dayOrder = none()): TodoistResult	
 moveItem	sync/items.html#moveItem,HttpClient,string	items: moveItem(client: HttpClient; id: string; parentId = none(); sectionId = none();\n         projectId = none()): TodoistResult	
 reorderItem	sync/items.html#reorderItem,HttpClient,seq[ItemOrder]	items: reorderItem(client: HttpClient; items: seq[ItemOrder]): TodoistResult	
-deleteItem	sync/items.html#deleteItem,HttpClient,string	items: deleteItem(client: HttpClient; id: string): TodoistResult	
-completeItem	sync/items.html#completeItem,HttpClient,string	items: completeItem(client: HttpClient; id: string; dateCompleted = none()): TodoistResult	
-uncompleteItem	sync/items.html#uncompleteItem,HttpClient,string	items: uncompleteItem(client: HttpClient; id: string): TodoistResult	
+deleteItem	sync/items.html#deleteItem,HttpClient,Item	items: deleteItem(client: HttpClient; item: Item): Item	
+completeItem	sync/items.html#completeItem,HttpClient,Item	items: completeItem(client: HttpClient; item: Item; dateCompleted = none()): Item	
+uncompleteItem	sync/items.html#uncompleteItem,HttpClient,Item	items: uncompleteItem(client: HttpClient; item: Item): Item	
 updateDateCompleteItem	sync/items.html#updateDateCompleteItem,HttpClient,string	items: updateDateCompleteItem(client: HttpClient; id: string; due = none()): TodoistResult	
 closeItem	sync/items.html#closeItem,HttpClient,string	items: closeItem(client: HttpClient; id: string): TodoistResult	
 updateDayOrdersItem	sync/items.html#updateDayOrdersItem,HttpClient,string	items: updateDayOrdersItem(client: HttpClient; id: string): TodoistResult	

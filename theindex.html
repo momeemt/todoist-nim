@@ -77,11 +77,11 @@ window.addEventListener('DOMContentLoaded', main);
         projectId = none(); due = none(); priority = none(); parentId = none();
         childOrder = none(); sectionId = none(); dayOrder = none();
         collapsed = none(); labels = none(); assignedByUid = none();
-        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): TodoistResult" href="sync/items.html#addItem%2CHttpClient%2Cstring">items: addItem(client: HttpClient; content: string; description = none();
+        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Item" href="sync/items.html#addItem%2CHttpClient%2Cstring">items: addItem(client: HttpClient; content: string; description = none();
         projectId = none(); due = none(); priority = none(); parentId = none();
         childOrder = none(); sectionId = none(); dayOrder = none();
         collapsed = none(); labels = none(); assignedByUid = none();
-        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): TodoistResult</a></li>
+        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Item</a></li>
           </ul></dd>
 <dt><a name="addItemWithoutSync" href="#addItemWithoutSync"><span>addItemWithoutSync:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -121,11 +121,11 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="completeItem" href="#completeItem"><span>completeItem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="items: completeItem(client: HttpClient; id: string; dateCompleted = none()): TodoistResult" href="sync/items.html#completeItem%2CHttpClient%2Cstring">items: completeItem(client: HttpClient; id: string; dateCompleted = none()): TodoistResult</a></li>
+          data-doc-search-tag="items: completeItem(client: HttpClient; item: Item; dateCompleted = none()): Item" href="sync/items.html#completeItem%2CHttpClient%2CItem">items: completeItem(client: HttpClient; item: Item; dateCompleted = none()): Item</a></li>
           </ul></dd>
 <dt><a name="deleteItem" href="#deleteItem"><span>deleteItem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="items: deleteItem(client: HttpClient; id: string): TodoistResult" href="sync/items.html#deleteItem%2CHttpClient%2Cstring">items: deleteItem(client: HttpClient; id: string): TodoistResult</a></li>
+          data-doc-search-tag="items: deleteItem(client: HttpClient; item: Item): Item" href="sync/items.html#deleteItem%2CHttpClient%2CItem">items: deleteItem(client: HttpClient; item: Item): Item</a></li>
           </ul></dd>
 <dt><a name="deleteProjectInstantly" href="#deleteProjectInstantly"><span>deleteProjectInstantly:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -219,7 +219,7 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="uncompleteItem" href="#uncompleteItem"><span>uncompleteItem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="items: uncompleteItem(client: HttpClient; id: string): TodoistResult" href="sync/items.html#uncompleteItem%2CHttpClient%2Cstring">items: uncompleteItem(client: HttpClient; id: string): TodoistResult</a></li>
+          data-doc-search-tag="items: uncompleteItem(client: HttpClient; item: Item): Item" href="sync/items.html#uncompleteItem%2CHttpClient%2CItem">items: uncompleteItem(client: HttpClient; item: Item): Item</a></li>
           </ul></dd>
 <dt><a name="updateDateCompleteItem" href="#updateDateCompleteItem"><span>updateDateCompleteItem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -256,7 +256,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-30 15:08:05 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 07:16:14 UTC</small>
       </div>
     </div>
   </div>

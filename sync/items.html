@@ -112,26 +112,26 @@ window.addEventListener('DOMContentLoaded', main);
   <li><a class="reference" href="#Item"
     title="Item = object
   id: string
-  userId: string
-  projectId: string
+  userId: Option[string]
+  projectId: Option[string]
   content: string
   description: string
-  due: Due
+  due: Option[Due]
   priority: int
-  parentId: string
-  childOrder: int
-  sectionId: string
+  parentId: Option[string]
+  childOrder: Option[int]
+  sectionId: Option[string]
   dayOrder: int
   collapsed: bool
   labels: seq[string]
-  addedByUid: string
+  addedByUid: Option[string]
   assignedByUid: string
-  responsibleUid: string
+  responsibleUid: Option[string]
   checked: bool
   isDeleted: bool
-  syncId: string
-  completedAt: string
-  addedAt: string">Item</a></li>
+  syncId: Option[string]
+  completedAt: Option[DateTime]
+  addedAt: DateTime">Item</a></li>
   <li><a class="reference" href="#ItemOrder"
     title="ItemOrder = object
   id: string
@@ -148,11 +148,11 @@ window.addEventListener('DOMContentLoaded', main);
         projectId = none(); due = none(); priority = none(); parentId = none();
         childOrder = none(); sectionId = none(); dayOrder = none();
         collapsed = none(); labels = none(); assignedByUid = none();
-        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): TodoistResult">addItem(client: HttpClient; content: string; description = none();
+        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Item">addItem(client: HttpClient; content: string; description = none();
         projectId = none(); due = none(); priority = none(); parentId = none();
         childOrder = none(); sectionId = none(); dayOrder = none();
         collapsed = none(); labels = none(); assignedByUid = none();
-        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): TodoistResult</a></li>
+        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Item</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">addItemWithoutSync
@@ -176,13 +176,13 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">completeItem
-      <li><a class="reference" href="#completeItem%2CHttpClient%2Cstring"
-    title="completeItem(client: HttpClient; id: string; dateCompleted = none()): TodoistResult">completeItem(client: HttpClient; id: string; dateCompleted = none()): TodoistResult</a></li>
+      <li><a class="reference" href="#completeItem%2CHttpClient%2CItem"
+    title="completeItem(client: HttpClient; item: Item; dateCompleted = none()): Item">completeItem(client: HttpClient; item: Item; dateCompleted = none()): Item</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">deleteItem
-      <li><a class="reference" href="#deleteItem%2CHttpClient%2Cstring"
-    title="deleteItem(client: HttpClient; id: string): TodoistResult">deleteItem(client: HttpClient; id: string): TodoistResult</a></li>
+      <li><a class="reference" href="#deleteItem%2CHttpClient%2CItem"
+    title="deleteItem(client: HttpClient; item: Item): Item">deleteItem(client: HttpClient; item: Item): Item</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">getCompletedItems
@@ -217,8 +217,8 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">uncompleteItem
-      <li><a class="reference" href="#uncompleteItem%2CHttpClient%2Cstring"
-    title="uncompleteItem(client: HttpClient; id: string): TodoistResult">uncompleteItem(client: HttpClient; id: string): TodoistResult</a></li>
+      <li><a class="reference" href="#uncompleteItem%2CHttpClient%2CItem"
+    title="uncompleteItem(client: HttpClient; item: Item): Item">uncompleteItem(client: HttpClient; item: Item): Item</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">updateDateCompleteItem
@@ -273,26 +273,26 @@ window.addEventListener('DOMContentLoaded', main);
 <div id="Item">
 <dt><pre><a href="items.html#Item"><span class="Identifier">Item</span></a> <span class="Other">=</span> <span class="Keyword">object</span>
   <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">userId</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">projectId</span><span class="Other">:</span> <span class="Identifier">string</span>
+  <span class="Identifier">userId</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
+  <span class="Identifier">projectId</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
   <span class="Identifier">content</span><span class="Other">:</span> <span class="Identifier">string</span>
   <span class="Identifier">description</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">due</span><span class="Other">:</span> <a href="items.html#Due"><span class="Identifier">Due</span></a>
+  <span class="Identifier">due</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><a href="items.html#Due"><span class="Identifier">Due</span></a><span class="Other">]</span>
   <span class="Identifier">priority</span><span class="Other">:</span> <span class="Identifier">int</span>
-  <span class="Identifier">parentId</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">childOrder</span><span class="Other">:</span> <span class="Identifier">int</span>
-  <span class="Identifier">sectionId</span><span class="Other">:</span> <span class="Identifier">string</span>
+  <span class="Identifier">parentId</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
+  <span class="Identifier">childOrder</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span>
+  <span class="Identifier">sectionId</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
   <span class="Identifier">dayOrder</span><span class="Other">:</span> <span class="Identifier">int</span>
   <span class="Identifier">collapsed</span><span class="Other">:</span> <span class="Identifier">bool</span>
   <span class="Identifier">labels</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
-  <span class="Identifier">addedByUid</span><span class="Other">:</span> <span class="Identifier">string</span>
+  <span class="Identifier">addedByUid</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
   <span class="Identifier">assignedByUid</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">responsibleUid</span><span class="Other">:</span> <span class="Identifier">string</span>
+  <span class="Identifier">responsibleUid</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
   <span class="Identifier">checked</span><span class="Other">:</span> <span class="Identifier">bool</span>
   <span class="Identifier">isDeleted</span><span class="Other">:</span> <span class="Identifier">bool</span>
-  <span class="Identifier">syncId</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">completedAt</span><span class="Other">:</span> <span class="Identifier">string</span>
-  <span class="Identifier">addedAt</span><span class="Other">:</span> <span class="Identifier">string</span>
+  <span class="Identifier">syncId</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span>
+  <span class="Identifier">completedAt</span><span class="Other">:</span> <span class="Identifier">Option</span><span class="Other">[</span><span class="Identifier">DateTime</span><span class="Other">]</span>
+  <span class="Identifier">addedAt</span><span class="Other">:</span> <span class="Identifier">DateTime</span>
 </pre></dt>
 <dd>
 
@@ -322,7 +322,7 @@ window.addEventListener('DOMContentLoaded', main);
              <span class="Identifier">parentId</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">childOrder</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">sectionId</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span>
              <span class="Identifier">dayOrder</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">collapsed</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">labels</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span>
              <span class="Identifier">assignedByUid</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">responsibleUid</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span>
-             <span class="Identifier">autoReminder</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">autoParseLabels</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <a href="apis.html#TodoistResult"><span class="Identifier">TodoistResult</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
+             <span class="Identifier">autoReminder</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">autoParseLabels</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <a href="items.html#Item"><span class="Identifier">Item</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
     <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">HttpRequestError</span><span class="Other">,</span> <span class="Identifier">LibraryError</span><span class="Other">,</span>
     <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">SslError</span><span class="Other">,</span> <span class="Identifier">TimeoutError</span><span class="Other">,</span> <span class="Identifier">ProtocolError</span><span class="Other">,</span> <span class="Identifier">JsonParsingError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -356,18 +356,22 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
-<div id="completeItem,HttpClient,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#completeItem%2CHttpClient%2Cstring"><span class="Identifier">completeItem</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">HttpClient</span><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">dateCompleted</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <a href="apis.html#TodoistResult"><span class="Identifier">TodoistResult</span></a> {.
-    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="completeItem,HttpClient,Item">
+<dt><pre><span class="Keyword">proc</span> <a href="#completeItem%2CHttpClient%2CItem"><span class="Identifier">completeItem</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">HttpClient</span><span class="Other">;</span> <span class="Identifier">item</span><span class="Other">:</span> <a href="items.html#Item"><span class="Identifier">Item</span></a><span class="Other">;</span> <span class="Identifier">dateCompleted</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <a href="items.html#Item"><span class="Identifier">Item</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span>
+    <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">HttpRequestError</span><span class="Other">,</span> <span class="Identifier">LibraryError</span><span class="Other">,</span>
+    <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">SslError</span><span class="Other">,</span> <span class="Identifier">TimeoutError</span><span class="Other">,</span> <span class="Identifier">ProtocolError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
 
 </dd>
 </div>
-<div id="deleteItem,HttpClient,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#deleteItem%2CHttpClient%2Cstring"><span class="Identifier">deleteItem</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">HttpClient</span><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="apis.html#TodoistResult"><span class="Identifier">TodoistResult</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="deleteItem,HttpClient,Item">
+<dt><pre><span class="Keyword">proc</span> <a href="#deleteItem%2CHttpClient%2CItem"><span class="Identifier">deleteItem</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">HttpClient</span><span class="Other">;</span> <span class="Identifier">item</span><span class="Other">:</span> <a href="items.html#Item"><span class="Identifier">Item</span></a><span class="Other">)</span><span class="Other">:</span> <a href="items.html#Item"><span class="Identifier">Item</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">,</span>
+    <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">HttpRequestError</span><span class="Other">,</span> <span class="Identifier">LibraryError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">SslError</span><span class="Other">,</span>
+    <span class="Identifier">TimeoutError</span><span class="Other">,</span> <span class="Identifier">ProtocolError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -423,9 +427,11 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
-<div id="uncompleteItem,HttpClient,string">
-<dt><pre><span class="Keyword">proc</span> <a href="#uncompleteItem%2CHttpClient%2Cstring"><span class="Identifier">uncompleteItem</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">HttpClient</span><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="apis.html#TodoistResult"><span class="Identifier">TodoistResult</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="uncompleteItem,HttpClient,Item">
+<dt><pre><span class="Keyword">proc</span> <a href="#uncompleteItem%2CHttpClient%2CItem"><span class="Identifier">uncompleteItem</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">HttpClient</span><span class="Other">;</span> <span class="Identifier">item</span><span class="Other">:</span> <a href="items.html#Item"><span class="Identifier">Item</span></a><span class="Other">)</span><span class="Other">:</span> <a href="items.html#Item"><span class="Identifier">Item</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">OSError</span><span class="Other">,</span>
+    <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">HttpRequestError</span><span class="Other">,</span> <span class="Identifier">LibraryError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">SslError</span><span class="Other">,</span>
+    <span class="Identifier">TimeoutError</span><span class="Other">,</span> <span class="Identifier">ProtocolError</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">TimeEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -472,7 +478,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-30 15:08:05 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 07:16:14 UTC</small>
       </div>
     </div>
   </div>
