@@ -73,15 +73,17 @@ window.addEventListener('DOMContentLoaded', main);
     Modules: <a href="colors.html">colors</a>, <a href="sync/apis.html">sync/apis</a>, <a href="sync/items.html">sync/items</a>, <a href="sync/projects.html">sync/projects</a>.<br/><p /><h2>API symbols</h2>
 <dl><dt><a name="addItem" href="#addItem"><span>addItem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="items: addItem(client: HttpClient; content: string; description = none();
+          data-doc-search-tag="items: addItem(client: AsyncHttpClient; content: string; description = none();
         projectId = none(); due = none(); priority = none(); parentId = none();
         childOrder = none(); sectionId = none(); dayOrder = none();
         collapsed = none(); labels = none(); assignedByUid = none();
-        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Item" href="sync/items.html#addItem%2CHttpClient%2Cstring">items: addItem(client: HttpClient; content: string; description = none();
+        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Future[
+    Item]" href="sync/items.html#addItem%2CAsyncHttpClient%2Cstring">items: addItem(client: AsyncHttpClient; content: string; description = none();
         projectId = none(); due = none(); priority = none(); parentId = none();
         childOrder = none(); sectionId = none(); dayOrder = none();
         collapsed = none(); labels = none(); assignedByUid = none();
-        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Item</a></li>
+        responsibleUid = none(); autoReminder = none(); autoParseLabels = none()): Future[
+    Item]</a></li>
           </ul></dd>
 <dt><a name="addItemWithoutSync" href="#addItemWithoutSync"><span>addItemWithoutSync:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -121,7 +123,9 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="completeItem" href="#completeItem"><span>completeItem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="items: completeItem(client: HttpClient; item: Item; dateCompleted = none()): Item" href="sync/items.html#completeItem%2CHttpClient%2CItem">items: completeItem(client: HttpClient; item: Item; dateCompleted = none()): Item</a></li>
+          data-doc-search-tag="items: completeItem(client: AsyncHttpClient; item: Item; dateCompleted = none()): Future[
+    Item]" href="sync/items.html#completeItem%2CAsyncHttpClient%2CItem">items: completeItem(client: AsyncHttpClient; item: Item; dateCompleted = none()): Future[
+    Item]</a></li>
           </ul></dd>
 <dt><a name="deleteItem" href="#deleteItem"><span>deleteItem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -195,7 +199,7 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="syncAPI" href="#syncAPI"><span>syncAPI:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="apis: syncAPI(token: string): HttpClient" href="sync/apis.html#syncAPI%2Cstring">apis: syncAPI(token: string): HttpClient</a></li>
+          data-doc-search-tag="apis: syncAPI(token: string): AsyncHttpClient" href="sync/apis.html#syncAPI%2Cstring">apis: syncAPI(token: string): AsyncHttpClient</a></li>
           </ul></dd>
 <dt><a name="SyncStatus" href="#SyncStatus"><span>SyncStatus:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -256,7 +260,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 07:16:14 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 07:34:11 UTC</small>
       </div>
     </div>
   </div>

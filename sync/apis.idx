@@ -1,5 +1,5 @@
 SyncStatus	sync/apis.html#SyncStatus	apis: SyncStatus	
 TodoistResult	sync/apis.html#TodoistResult	apis: TodoistResult	
 TodoistSyncAPIUrl	sync/apis.html#TodoistSyncAPIUrl	apis: TodoistSyncAPIUrl	
-syncAPI	sync/apis.html#syncAPI,string	apis: syncAPI(token: string): HttpClient	
+syncAPI	sync/apis.html#syncAPI,string	apis: syncAPI(token: string): AsyncHttpClient	
 toTodoistResult	sync/apis.html#toTodoistResult,JsonNode	apis: toTodoistResult(res: JsonNode): TodoistResult	
