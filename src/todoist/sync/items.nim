@@ -2,6 +2,7 @@ import apis
 
 import std/json
 import std/times
+import std/tables
 import std/options
 import std/httpclient
 
@@ -13,26 +14,26 @@ type
 
   Item* = object
     id: string
-    userId: string
-    projectId: string
+    userId: Option[string]
+    projectId: Option[string]
     content: string
     description: string
-    due: Due
+    due: Option[Due]
     priority: int
-    parentId: string
-    childOrder: int
-    sectionId: string
+    parentId: Option[string]
+    childOrder: Option[int]
+    sectionId: Option[string]
     dayOrder: int
     collapsed: bool
     labels: seq[string]
-    addedByUid: string
+    addedByUid: Option[string]
     assignedByUid: string
-    responsibleUid: string
+    responsibleUid: Option[string]
     checked: bool
     isDeleted: bool
-    syncId: string
-    completedAt: string
-    addedAt: string
+    syncId: Option[string]
+    completedAt: Option[DateTime]
+    addedAt: DateTime
   
   ItemOrder* = object
     id: string
@@ -57,15 +58,16 @@ proc addItem* (client: HttpClient,
                assignedByUid = none[string](),
                responsibleUid = none[string](),
                autoReminder = none[bool](),
-               autoParseLabels = none[bool]()): TodoistResult =
+               autoParseLabels = none[bool]()): Item =
   var client = client
   client.headers["Content-Type"] = "application/json"
   var data = newMultipartData()
+  let (tempId, uuid) = ($genUUID(), $genUUID())
   var commands = %*[
     {
       "type": "item_add",
-      "temp_id": $genUUID(),
-      "uuid": $genUUID(),
+      "temp_id": tempId,
+      "uuid": uuid,
       "args": {
         "content": content,
       }
@@ -88,7 +90,25 @@ proc addItem* (client: HttpClient,
 
   data["commands"] = $commands
   let response = client.postContent(TodoistSyncAPIUrl, multipart=data)
-  result = response.parseJson.toTodoistResult
+  let todoistRes = response.parseJson.toTodoistResult
+  result = Item(
+    id: todoistRes.tempIdMapping[tempId],
+    content: content,
+    description: description.get(""),
+    projectId: projectId,
+    due: due,
+    priority: priority.get(1),
+    parentId: parentId,
+    childOrder: childOrder,
+    sectionId: sectionId,
+    dayOrder: dayOrder.get(-1),
+    collapsed: collapsed.get(false),
+    labels: labels.get(@[]),
+    assignedByUid: assignedByUid.get(""),
+    responsibleUid: responsibleUid,
+    checked: false,
+    isDeleted: false
+  )
 
 proc updateItem* (client: HttpClient,
                   id: string,
@@ -113,14 +133,62 @@ proc moveItem* (client: HttpClient,
 proc reorderItem* (client: HttpClient, items: seq[ItemOrder]): TodoistResult =
   discard
 
-proc deleteItem* (client: HttpClient, id: string): TodoistResult =
-  discard
+proc deleteItem* (client: HttpClient, item: Item): Item =
+  result = item
+  result.isDeleted = true
+  var
+    client = client
+    data = newMultipartData()
+  let uuid = $genUUID()
+  let commands = %*[
+    {
+      "type": "item_delete",
+      "uuid": uuid,
+      "args": {
+        "id": result.id
+      }
+    }
+  ]
+  data["commands"] = $commands
+  let _ = client.postContent(TodoistSyncAPIUrl, multipart=data)
 
-proc completeItem* (client: HttpClient, id: string, dateCompleted = none[DateTime]()): TodoistResult =
-  discard
+proc completeItem* (client: HttpClient, item: Item, dateCompleted = none[DateTime]()): Item =
+  result = item
+  result.checked = true
+  var
+    client = client
+    data = newMultipartData()
+  let commands = %*[
+    {
+      "type": "item_complete",
+      "uuid": $genUUID(),
+      "args": {
+        "id": result.id
+      }
+    }
+  ]
+  if Some(@dateCompleted) ?= dateCompleted:
+    commands[0]["args"]["date_completed"] = %*(dateCompleted.format("yyyy-MM-dd'T'HH:mm:ss'.'ffffff'Z'"))
+  data["commands"] = $commands
+  let _ = client.postContent(TodoistSyncAPIUrl, multipart=data)
 
-proc uncompleteItem* (client: HttpClient, id: string): TodoistResult =
-  discard
+proc uncompleteItem* (client: HttpClient, item: Item): Item =
+  result = item
+  result.checked = false
+  var
+    client = client
+    data = newMultipartData()
+  let commands = %*[
+    {
+      "type": "item_uncomplete",
+      "uuid": $genUUID(),
+      "args": {
+        "id": result.id
+      }
+    }
+  ]
+  data["commands"] = $commands
+  let _ = client.postContent(TodoistSyncAPIUrl, multipart=data)
 
 proc updateDateCompleteItem* (client: HttpClient, id: string, due = none[Due]()): TodoistResult =
   discard
