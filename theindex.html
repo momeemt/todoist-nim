@@ -145,9 +145,11 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="getCompletedItems" href="#getCompletedItems"><span>getCompletedItems:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="items: getCompletedItems(client: HttpClient; projectId: string; limit: int;
-                  offset: int; until: string; since: string; annotateNotes: bool): TodoistResult" href="sync/items.html#getCompletedItems%2CHttpClient%2Cstring%2Cint%2Cint%2Cstring%2Cstring%2Cbool">items: getCompletedItems(client: HttpClient; projectId: string; limit: int;
-                  offset: int; until: string; since: string; annotateNotes: bool): TodoistResult</a></li>
+          data-doc-search-tag="items: getCompletedItems(client: AsyncHttpClient; projectId = none(); limit = none();
+                  offset = none(); until = none(); since = none();
+                  annotateNotes = none()): Future[seq[Item]]" href="sync/items.html#getCompletedItems%2CAsyncHttpClient">items: getCompletedItems(client: AsyncHttpClient; projectId = none(); limit = none();
+                  offset = none(); until = none(); since = none();
+                  annotateNotes = none()): Future[seq[Item]]</a></li>
           </ul></dd>
 <dt><a name="getItemInfo" href="#getItemInfo"><span>getItemInfo:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -260,7 +262,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 08:05:52 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 23:54:23 UTC</small>
       </div>
     </div>
   </div>

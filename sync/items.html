@@ -190,10 +190,12 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">getCompletedItems
-      <li><a class="reference" href="#getCompletedItems%2CHttpClient%2Cstring%2Cint%2Cint%2Cstring%2Cstring%2Cbool"
-    title="getCompletedItems(client: HttpClient; projectId: string; limit: int;
-                  offset: int; until: string; since: string; annotateNotes: bool): TodoistResult">getCompletedItems(client: HttpClient; projectId: string; limit: int;
-                  offset: int; until: string; since: string; annotateNotes: bool): TodoistResult</a></li>
+      <li><a class="reference" href="#getCompletedItems%2CAsyncHttpClient"
+    title="getCompletedItems(client: AsyncHttpClient; projectId = none(); limit = none();
+                  offset = none(); until = none(); since = none();
+                  annotateNotes = none()): Future[seq[Item]]">getCompletedItems(client: AsyncHttpClient; projectId = none(); limit = none();
+                  offset = none(); until = none(); since = none();
+                  annotateNotes = none()): Future[seq[Item]]</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">getItemInfo
@@ -380,11 +382,12 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
-<div id="getCompletedItems,HttpClient,string,int,int,string,string,bool">
-<dt><pre><span class="Keyword">proc</span> <a href="#getCompletedItems%2CHttpClient%2Cstring%2Cint%2Cint%2Cstring%2Cstring%2Cbool"><span class="Identifier">getCompletedItems</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">HttpClient</span><span class="Other">;</span> <span class="Identifier">projectId</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">limit</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span>
-                       <span class="Identifier">offset</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">until</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">since</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span>
-                       <span class="Identifier">annotateNotes</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <a href="apis.html#TodoistResult"><span class="Identifier">TodoistResult</span></a> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<div id="getCompletedItems,AsyncHttpClient">
+<dt><pre><span class="Keyword">proc</span> <a href="#getCompletedItems%2CAsyncHttpClient"><span class="Identifier">getCompletedItems</span></a><span class="Other">(</span><span class="Identifier">client</span><span class="Other">:</span> <span class="Identifier">AsyncHttpClient</span><span class="Other">;</span> <span class="Identifier">projectId</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span>
+                       <span class="Identifier">limit</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">offset</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">until</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span>
+                       <span class="Identifier">since</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">;</span> <span class="Identifier">annotateNotes</span> <span class="Other">=</span> <span class="Identifier">none</span><span class="Other">(</span><span class="Other">)</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Future</span><span class="Other">[</span><span class="Identifier">seq</span><span class="Other">[</span><a href="items.html#Item"><span class="Identifier">Item</span></a><span class="Other">]</span><span class="Other">]</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">TimeEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
 
@@ -480,7 +483,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 08:05:52 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-12-31 23:54:23 UTC</small>
       </div>
     </div>
   </div>
